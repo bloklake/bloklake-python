@@ -1,0 +1,1 @@
+{"fromBlock": 19426000, "toBlock": 19426009, "logs": [{"address": ["0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48"]}], "fields": {"log": {"blockNumber": true, "logIndex": true, "data": true, "topics": true}}}

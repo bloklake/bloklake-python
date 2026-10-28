@@ -1,0 +1,46 @@
+{
+ "archive_height": 100,
+ "finalized_block": 90,
+ "from_block": 10,
+ "to_block": 12,
+ "next_block": 13,
+ "objects": 3,
+ "query_id_template": "0x1111111111111111111111111111111111111111111111111111111111111111",
+ "to_block_hash": null,
+ "unavailable_fields": [],
+ "transactions": [
+  {
+   "hash": "0xabababababababababababababababababababababababababababababababab",
+   "value": "1000000000000000000000000000000",
+   "max_refund": "115792089237316195423570985008687907853269984665640564039457584007913129639935",
+   "deposit_value": null,
+   "authorization_list": [
+    {
+     "chain_id": "0x0000000000000000000000000000000000000000000000000000000000000001",
+     "address": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+     "nonce": 5,
+     "y_parity": 1,
+     "r": "0x0101010101010101010101010101010101010101010101010101010101010101",
+     "s": "0x0202020202020202020202020202020202020202020202020202020202020202"
+    }
+   ],
+   "status": 1
+  },
+  {
+   "hash": "0xabababababababababababababababababababababababababababababababab",
+   "value": "0",
+   "max_refund": "42",
+   "deposit_value": "1606938044258990275541962092341162602522202993782792835301376",
+   "authorization_list": [],
+   "status": 0
+  },
+  {
+   "hash": "0xabababababababababababababababababababababababababababababababab",
+   "value": null,
+   "max_refund": null,
+   "deposit_value": "0",
+   "authorization_list": null,
+   "status": null
+  }
+ ]
+}

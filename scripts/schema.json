@@ -1,0 +1,814 @@
+{
+    "families": [
+        "base",
+        "arbitrum"
+    ],
+    "row_types": {
+        "blocks": [
+            {
+                "arrow_type": "UInt64",
+                "available": true,
+                "dsl_name": "number",
+                "family": "base",
+                "name": "number",
+                "nullable": false
+            },
+            {
+                "arrow_type": "FixedSizeBinary(32)",
+                "available": true,
+                "dsl_name": "hash",
+                "family": "base",
+                "name": "hash",
+                "nullable": false
+            },
+            {
+                "arrow_type": "FixedSizeBinary(32)",
+                "available": true,
+                "dsl_name": "parentHash",
+                "family": "base",
+                "name": "parent_hash",
+                "nullable": false
+            },
+            {
+                "arrow_type": "UInt64",
+                "available": true,
+                "dsl_name": "timestamp",
+                "family": "base",
+                "name": "timestamp",
+                "nullable": false
+            },
+            {
+                "arrow_type": "UInt64",
+                "available": true,
+                "dsl_name": "size",
+                "family": "base",
+                "name": "size",
+                "nullable": false
+            },
+            {
+                "arrow_type": "UInt64",
+                "available": true,
+                "dsl_name": "gasUsed",
+                "family": "base",
+                "name": "gas_used",
+                "nullable": false
+            },
+            {
+                "arrow_type": "UInt64",
+                "available": true,
+                "dsl_name": "gasLimit",
+                "family": "base",
+                "name": "gas_limit",
+                "nullable": false
+            },
+            {
+                "arrow_type": "FixedSizeBinary(16)",
+                "available": true,
+                "dsl_name": "baseFeePerGas",
+                "family": "base",
+                "name": "base_fee_per_gas",
+                "nullable": true
+            },
+            {
+                "arrow_type": "FixedSizeBinary(32)",
+                "available": true,
+                "dsl_name": "stateRoot",
+                "family": "base",
+                "name": "state_root",
+                "nullable": false
+            },
+            {
+                "arrow_type": "FixedSizeBinary(32)",
+                "available": true,
+                "dsl_name": "transactionsRoot",
+                "family": "base",
+                "name": "transactions_root",
+                "nullable": false
+            },
+            {
+                "arrow_type": "FixedSizeBinary(32)",
+                "available": true,
+                "dsl_name": "receiptsRoot",
+                "family": "base",
+                "name": "receipts_root",
+                "nullable": false
+            },
+            {
+                "arrow_type": "FixedSizeBinary(256)",
+                "available": true,
+                "dsl_name": "logsBloom",
+                "family": "base",
+                "name": "logs_bloom",
+                "nullable": false
+            },
+            {
+                "arrow_type": "FixedSizeBinary(16)",
+                "available": true,
+                "dsl_name": "difficulty",
+                "family": "base",
+                "name": "difficulty",
+                "nullable": true
+            },
+            {
+                "arrow_type": "FixedSizeBinary(16)",
+                "available": false,
+                "dsl_name": "totalDifficulty",
+                "family": "base",
+                "name": "total_difficulty",
+                "nullable": true
+            },
+            {
+                "arrow_type": "FixedSizeBinary(20)",
+                "available": true,
+                "dsl_name": "miner",
+                "family": "base",
+                "name": "miner",
+                "nullable": false
+            },
+            {
+                "arrow_type": "FixedSizeBinary(8)",
+                "available": true,
+                "dsl_name": "nonce",
+                "family": "base",
+                "name": "nonce",
+                "nullable": true
+            },
+            {
+                "arrow_type": "FixedSizeBinary(32)",
+                "available": true,
+                "dsl_name": "sha3Uncles",
+                "family": "base",
+                "name": "sha3_uncles",
+                "nullable": false
+            },
+            {
+                "arrow_type": "List<FixedSizeBinary(32)>",
+                "available": true,
+                "dsl_name": "uncles",
+                "family": "base",
+                "name": "uncles",
+                "nullable": false
+            },
+            {
+                "arrow_type": "FixedSizeBinary(32)",
+                "available": true,
+                "dsl_name": "mixHash",
+                "family": "base",
+                "name": "mix_hash",
+                "nullable": true
+            },
+            {
+                "arrow_type": "Binary",
+                "available": true,
+                "dsl_name": "extraData",
+                "family": "base",
+                "name": "extra_data",
+                "nullable": false
+            },
+            {
+                "arrow_type": "FixedSizeBinary(32)",
+                "available": false,
+                "dsl_name": "withdrawalsRoot",
+                "family": "base",
+                "name": "withdrawals_root",
+                "nullable": true
+            },
+            {
+                "arrow_type": "List<Struct<index: UInt64, validator_index: UInt64, address: FixedSizeBinary(20), amount: UInt64>>",
+                "available": false,
+                "dsl_name": "withdrawals",
+                "family": "base",
+                "name": "withdrawals",
+                "nullable": true
+            },
+            {
+                "arrow_type": "UInt64",
+                "available": false,
+                "dsl_name": "blobGasUsed",
+                "family": "base",
+                "name": "blob_gas_used",
+                "nullable": true
+            },
+            {
+                "arrow_type": "UInt64",
+                "available": false,
+                "dsl_name": "excessBlobGas",
+                "family": "base",
+                "name": "excess_blob_gas",
+                "nullable": true
+            },
+            {
+                "arrow_type": "FixedSizeBinary(32)",
+                "available": false,
+                "dsl_name": "parentBeaconBlockRoot",
+                "family": "base",
+                "name": "parent_beacon_block_root",
+                "nullable": true
+            },
+            {
+                "arrow_type": "FixedSizeBinary(32)",
+                "available": false,
+                "dsl_name": "requestsHash",
+                "family": "base",
+                "name": "requests_hash",
+                "nullable": true
+            },
+            {
+                "arrow_type": "UInt64",
+                "available": true,
+                "dsl_name": "l1BlockNumber",
+                "family": "arbitrum",
+                "name": "l1_block_number",
+                "nullable": true
+            },
+            {
+                "arrow_type": "UInt64",
+                "available": true,
+                "dsl_name": "sendCount",
+                "family": "arbitrum",
+                "name": "send_count",
+                "nullable": true
+            },
+            {
+                "arrow_type": "FixedSizeBinary(32)",
+                "available": true,
+                "dsl_name": "sendRoot",
+                "family": "arbitrum",
+                "name": "send_root",
+                "nullable": true
+            }
+        ],
+        "logs": [
+            {
+                "arrow_type": "UInt64",
+                "available": true,
+                "dsl_name": "blockNumber",
+                "family": "base",
+                "name": "block_number",
+                "nullable": false
+            },
+            {
+                "arrow_type": "UInt32",
+                "available": true,
+                "dsl_name": "logIndex",
+                "family": "base",
+                "name": "log_index",
+                "nullable": false
+            },
+            {
+                "arrow_type": "FixedSizeBinary(32)",
+                "available": true,
+                "dsl_name": "transactionHash",
+                "family": "base",
+                "name": "transaction_hash",
+                "nullable": false
+            },
+            {
+                "arrow_type": "UInt32",
+                "available": true,
+                "dsl_name": "transactionIndex",
+                "family": "base",
+                "name": "transaction_index",
+                "nullable": false
+            },
+            {
+                "arrow_type": "FixedSizeBinary(20)",
+                "available": true,
+                "dsl_name": "address",
+                "family": "base",
+                "name": "address",
+                "nullable": false
+            },
+            {
+                "arrow_type": "FixedSizeBinary(32)",
+                "available": true,
+                "dsl_name": "topic0",
+                "family": "base",
+                "name": "topic0",
+                "nullable": true
+            },
+            {
+                "arrow_type": "FixedSizeBinary(32)",
+                "available": true,
+                "dsl_name": "topic1",
+                "family": "base",
+                "name": "topic1",
+                "nullable": true
+            },
+            {
+                "arrow_type": "FixedSizeBinary(32)",
+                "available": true,
+                "dsl_name": "topic2",
+                "family": "base",
+                "name": "topic2",
+                "nullable": true
+            },
+            {
+                "arrow_type": "FixedSizeBinary(32)",
+                "available": true,
+                "dsl_name": "topic3",
+                "family": "base",
+                "name": "topic3",
+                "nullable": true
+            },
+            {
+                "arrow_type": "Binary",
+                "available": true,
+                "dsl_name": "data",
+                "family": "base",
+                "name": "data",
+                "nullable": false
+            },
+            {
+                "arrow_type": "UInt64",
+                "available": true,
+                "dsl_name": "blockTimestamp",
+                "family": "base",
+                "name": "block_timestamp",
+                "nullable": true
+            }
+        ],
+        "transactions": [
+            {
+                "arrow_type": "UInt64",
+                "available": true,
+                "dsl_name": "blockNumber",
+                "family": "base",
+                "name": "block_number",
+                "nullable": false
+            },
+            {
+                "arrow_type": "UInt32",
+                "available": true,
+                "dsl_name": "transactionIndex",
+                "family": "base",
+                "name": "transaction_index",
+                "nullable": false
+            },
+            {
+                "arrow_type": "FixedSizeBinary(32)",
+                "available": true,
+                "dsl_name": "hash",
+                "family": "base",
+                "name": "hash",
+                "nullable": false
+            },
+            {
+                "arrow_type": "FixedSizeBinary(20)",
+                "available": true,
+                "dsl_name": "from",
+                "family": "base",
+                "name": "from",
+                "nullable": false
+            },
+            {
+                "arrow_type": "FixedSizeBinary(20)",
+                "available": true,
+                "dsl_name": "to",
+                "family": "base",
+                "name": "to",
+                "nullable": true
+            },
+            {
+                "arrow_type": "FixedSizeBinary(16)",
+                "available": true,
+                "dsl_name": "value",
+                "family": "base",
+                "name": "value",
+                "nullable": false
+            },
+            {
+                "arrow_type": "Binary",
+                "available": true,
+                "dsl_name": "input",
+                "family": "base",
+                "name": "input",
+                "nullable": false
+            },
+            {
+                "arrow_type": "UInt64",
+                "available": true,
+                "dsl_name": "nonce",
+                "family": "base",
+                "name": "nonce",
+                "nullable": false
+            },
+            {
+                "arrow_type": "UInt64",
+                "available": true,
+                "dsl_name": "gas",
+                "family": "base",
+                "name": "gas",
+                "nullable": false
+            },
+            {
+                "arrow_type": "FixedSizeBinary(16)",
+                "available": true,
+                "dsl_name": "gasPrice",
+                "family": "base",
+                "name": "gas_price",
+                "nullable": true
+            },
+            {
+                "arrow_type": "FixedSizeBinary(16)",
+                "available": true,
+                "dsl_name": "maxFeePerGas",
+                "family": "base",
+                "name": "max_fee_per_gas",
+                "nullable": true
+            },
+            {
+                "arrow_type": "FixedSizeBinary(16)",
+                "available": true,
+                "dsl_name": "maxPriorityFeePerGas",
+                "family": "base",
+                "name": "max_priority_fee_per_gas",
+                "nullable": true
+            },
+            {
+                "arrow_type": "UInt64",
+                "available": true,
+                "dsl_name": "gasUsed",
+                "family": "base",
+                "name": "gas_used",
+                "nullable": false
+            },
+            {
+                "arrow_type": "UInt64",
+                "available": true,
+                "dsl_name": "cumulativeGasUsed",
+                "family": "base",
+                "name": "cumulative_gas_used",
+                "nullable": false
+            },
+            {
+                "arrow_type": "FixedSizeBinary(16)",
+                "available": true,
+                "dsl_name": "effectiveGasPrice",
+                "family": "base",
+                "name": "effective_gas_price",
+                "nullable": false
+            },
+            {
+                "arrow_type": "UInt8",
+                "available": true,
+                "dsl_name": "status",
+                "family": "base",
+                "name": "status",
+                "nullable": true
+            },
+            {
+                "arrow_type": "UInt8",
+                "available": true,
+                "dsl_name": "type",
+                "family": "base",
+                "name": "type",
+                "nullable": false
+            },
+            {
+                "arrow_type": "List<Struct<address: FixedSizeBinary(20), storage_keys: List<FixedSizeBinary(32)>>>",
+                "available": true,
+                "dsl_name": "accessList",
+                "family": "base",
+                "name": "access_list",
+                "nullable": true
+            },
+            {
+                "arrow_type": "FixedSizeBinary(256)",
+                "available": true,
+                "dsl_name": "logsBloom",
+                "family": "base",
+                "name": "logs_bloom",
+                "nullable": false
+            },
+            {
+                "arrow_type": "UInt64",
+                "available": true,
+                "dsl_name": "chainId",
+                "family": "base",
+                "name": "chain_id",
+                "nullable": true
+            },
+            {
+                "arrow_type": "UInt64",
+                "available": true,
+                "dsl_name": "v",
+                "family": "base",
+                "name": "v",
+                "nullable": false
+            },
+            {
+                "arrow_type": "FixedSizeBinary(32)",
+                "available": true,
+                "dsl_name": "r",
+                "family": "base",
+                "name": "r",
+                "nullable": false
+            },
+            {
+                "arrow_type": "FixedSizeBinary(32)",
+                "available": true,
+                "dsl_name": "s",
+                "family": "base",
+                "name": "s",
+                "nullable": false
+            },
+            {
+                "arrow_type": "UInt8",
+                "available": true,
+                "dsl_name": "yParity",
+                "family": "base",
+                "name": "y_parity",
+                "nullable": true
+            },
+            {
+                "arrow_type": "FixedSizeBinary(20)",
+                "available": true,
+                "dsl_name": "contractAddress",
+                "family": "base",
+                "name": "contract_address",
+                "nullable": true
+            },
+            {
+                "arrow_type": "FixedSizeBinary(4)",
+                "available": true,
+                "dsl_name": "sighash",
+                "family": "base",
+                "name": "sighash",
+                "nullable": true
+            },
+            {
+                "arrow_type": "FixedSizeBinary(16)",
+                "available": false,
+                "dsl_name": "maxFeePerBlobGas",
+                "family": "base",
+                "name": "max_fee_per_blob_gas",
+                "nullable": true
+            },
+            {
+                "arrow_type": "List<FixedSizeBinary(32)>",
+                "available": false,
+                "dsl_name": "blobVersionedHashes",
+                "family": "base",
+                "name": "blob_versioned_hashes",
+                "nullable": true
+            },
+            {
+                "arrow_type": "UInt64",
+                "available": false,
+                "dsl_name": "blobGasUsed",
+                "family": "base",
+                "name": "blob_gas_used",
+                "nullable": true
+            },
+            {
+                "arrow_type": "FixedSizeBinary(16)",
+                "available": false,
+                "dsl_name": "blobGasPrice",
+                "family": "base",
+                "name": "blob_gas_price",
+                "nullable": true
+            },
+            {
+                "arrow_type": "List<Struct<chain_id: FixedSizeBinary(32), address: FixedSizeBinary(20), nonce: UInt64, y_parity: UInt8, r: FixedSizeBinary(32), s: FixedSizeBinary(32)>>",
+                "available": true,
+                "dsl_name": "authorizationList",
+                "family": "base",
+                "name": "authorization_list",
+                "nullable": true
+            },
+            {
+                "arrow_type": "UInt64",
+                "available": true,
+                "dsl_name": "gasUsedForL1",
+                "family": "arbitrum",
+                "name": "gas_used_for_l1",
+                "nullable": true
+            },
+            {
+                "arrow_type": "UInt64",
+                "available": true,
+                "dsl_name": "l1BlockNumber",
+                "family": "arbitrum",
+                "name": "l1_block_number",
+                "nullable": true
+            },
+            {
+                "arrow_type": "FixedSizeBinary(32)",
+                "available": true,
+                "dsl_name": "requestId",
+                "family": "arbitrum",
+                "name": "request_id",
+                "nullable": true
+            },
+            {
+                "arrow_type": "FixedSizeBinary(32)",
+                "available": true,
+                "dsl_name": "ticketId",
+                "family": "arbitrum",
+                "name": "ticket_id",
+                "nullable": true
+            },
+            {
+                "arrow_type": "FixedSizeBinary(20)",
+                "available": true,
+                "dsl_name": "refundTo",
+                "family": "arbitrum",
+                "name": "refund_to",
+                "nullable": true
+            },
+            {
+                "arrow_type": "FixedSizeBinary(32)",
+                "available": true,
+                "dsl_name": "maxRefund",
+                "family": "arbitrum",
+                "name": "max_refund",
+                "nullable": true
+            },
+            {
+                "arrow_type": "FixedSizeBinary(32)",
+                "available": true,
+                "dsl_name": "submissionFeeRefund",
+                "family": "arbitrum",
+                "name": "submission_fee_refund",
+                "nullable": true
+            },
+            {
+                "arrow_type": "FixedSizeBinary(32)",
+                "available": true,
+                "dsl_name": "depositValue",
+                "family": "arbitrum",
+                "name": "deposit_value",
+                "nullable": true
+            },
+            {
+                "arrow_type": "FixedSizeBinary(20)",
+                "available": true,
+                "dsl_name": "retryTo",
+                "family": "arbitrum",
+                "name": "retry_to",
+                "nullable": true
+            },
+            {
+                "arrow_type": "FixedSizeBinary(32)",
+                "available": true,
+                "dsl_name": "retryValue",
+                "family": "arbitrum",
+                "name": "retry_value",
+                "nullable": true
+            },
+            {
+                "arrow_type": "Binary",
+                "available": true,
+                "dsl_name": "retryData",
+                "family": "arbitrum",
+                "name": "retry_data",
+                "nullable": true
+            },
+            {
+                "arrow_type": "FixedSizeBinary(20)",
+                "available": true,
+                "dsl_name": "beneficiary",
+                "family": "arbitrum",
+                "name": "beneficiary",
+                "nullable": true
+            },
+            {
+                "arrow_type": "FixedSizeBinary(32)",
+                "available": true,
+                "dsl_name": "maxSubmissionFee",
+                "family": "arbitrum",
+                "name": "max_submission_fee",
+                "nullable": true
+            },
+            {
+                "arrow_type": "FixedSizeBinary(32)",
+                "available": true,
+                "dsl_name": "l1BaseFee",
+                "family": "arbitrum",
+                "name": "l1_base_fee",
+                "nullable": true
+            },
+            {
+                "arrow_type": "FixedSizeBinary(32)",
+                "available": false,
+                "dsl_name": "sourceHash",
+                "family": "op_stack",
+                "name": "source_hash",
+                "nullable": true
+            },
+            {
+                "arrow_type": "FixedSizeBinary(16)",
+                "available": false,
+                "dsl_name": "mint",
+                "family": "op_stack",
+                "name": "mint",
+                "nullable": true
+            },
+            {
+                "arrow_type": "UInt8",
+                "available": false,
+                "dsl_name": "isSystemTx",
+                "family": "op_stack",
+                "name": "is_system_tx",
+                "nullable": true
+            },
+            {
+                "arrow_type": "UInt64",
+                "available": false,
+                "dsl_name": "depositNonce",
+                "family": "op_stack",
+                "name": "deposit_nonce",
+                "nullable": true
+            },
+            {
+                "arrow_type": "UInt64",
+                "available": false,
+                "dsl_name": "depositReceiptVersion",
+                "family": "op_stack",
+                "name": "deposit_receipt_version",
+                "nullable": true
+            },
+            {
+                "arrow_type": "FixedSizeBinary(16)",
+                "available": false,
+                "dsl_name": "l1Fee",
+                "family": "op_stack",
+                "name": "l1_fee",
+                "nullable": true
+            },
+            {
+                "arrow_type": "FixedSizeBinary(16)",
+                "available": false,
+                "dsl_name": "l1GasPrice",
+                "family": "op_stack",
+                "name": "l1_gas_price",
+                "nullable": true
+            },
+            {
+                "arrow_type": "UInt64",
+                "available": false,
+                "dsl_name": "l1GasUsed",
+                "family": "op_stack",
+                "name": "l1_gas_used",
+                "nullable": true
+            },
+            {
+                "arrow_type": "UInt64",
+                "available": false,
+                "dsl_name": "l1BaseFeeScalar",
+                "family": "op_stack",
+                "name": "l1_base_fee_scalar",
+                "nullable": true
+            },
+            {
+                "arrow_type": "FixedSizeBinary(16)",
+                "available": false,
+                "dsl_name": "l1BlobBaseFee",
+                "family": "op_stack",
+                "name": "l1_blob_base_fee",
+                "nullable": true
+            },
+            {
+                "arrow_type": "UInt64",
+                "available": false,
+                "dsl_name": "l1BlobBaseFeeScalar",
+                "family": "op_stack",
+                "name": "l1_blob_base_fee_scalar",
+                "nullable": true
+            },
+            {
+                "arrow_type": "UInt64",
+                "available": false,
+                "dsl_name": "daFootprintGasScalar",
+                "family": "op_stack",
+                "name": "da_footprint_gas_scalar",
+                "nullable": true
+            },
+            {
+                "arrow_type": "UInt64",
+                "available": false,
+                "dsl_name": "operatorFeeScalar",
+                "family": "op_stack",
+                "name": "operator_fee_scalar",
+                "nullable": true
+            },
+            {
+                "arrow_type": "UInt64",
+                "available": false,
+                "dsl_name": "operatorFeeConstant",
+                "family": "op_stack",
+                "name": "operator_fee_constant",
+                "nullable": true
+            },
+            {
+                "arrow_type": "UInt8",
+                "available": true,
+                "dsl_name": "timeboosted",
+                "family": "arbitrum",
+                "name": "timeboosted",
+                "nullable": true
+            }
+        ]
+    }
+}

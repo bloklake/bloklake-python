@@ -1,0 +1,32 @@
+[build-system]
+requires = ["hatchling>=1.21"]
+build-backend = "hatchling.build"
+
+[project]
+name = "bloklake"
+version = "0.1.0"
+description = "Bloklake API client: typed queries, Apache Arrow transport, JSON-like rows."
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.9"
+dependencies = ["pyarrow>=14", "requests>=2.31"]
+classifiers = ["Programming Language :: Python :: 3", "Typing :: Typed"]
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "mypy>=1.10"]
+
+[project.urls]
+Documentation = "https://docs.bloklake.com"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/bloklake"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.mypy]
+strict = true
+
+[[tool.mypy.overrides]]
+module = ["pyarrow", "pyarrow.*"]
+ignore_missing_imports = true
