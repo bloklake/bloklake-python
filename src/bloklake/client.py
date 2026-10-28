@@ -1,5 +1,6 @@
 import os
 import random
+import re
 import time
 from typing import Any, Callable, Dict, Iterator, List, Mapping, Optional, Sequence, TypeVar, cast
 
@@ -13,6 +14,34 @@ from .types import Account, ChainStatus, Page, PageMeta, Prepared, Query, Schema
 
 
 T = TypeVar("T")
+
+
+def _camel(name: str) -> str:
+    """``block_number`` -> ``blockNumber``. Every field's request name is its column name in
+    camelCase (scripts/generate.py checks this), and so is every snake_case request key."""
+    return re.sub(r"_([a-z0-9])", lambda m: m.group(1).upper(), name)
+
+
+def _camel_keys(d: Mapping[str, Any], where: str) -> Dict[str, Any]:
+    out: Dict[str, Any] = {}
+    for k, v in d.items():
+        key = _camel(k)
+        if key in out:
+            raise ValueError(f"{where}: {key!r} is given twice (camelCase and snake_case); give it one way")
+        out[key] = v
+    return out
+
+
+def _camel_query(q: Mapping[str, Any]) -> Dict[str, Any]:
+    """The query with snake_case keys and field names (``from_block``, ``block_number``) in the
+    API's camelCase. camelCase input passes through unchanged."""
+    out = _camel_keys(q, "query")
+    for k in ("logs", "transactions"):
+        if k in out:
+            out[k] = [_camel_keys(f, k) for f in out[k]]
+    if "fields" in out:
+        out["fields"] = {rt: [_camel(n) for n in names] for rt, names in out["fields"].items()}
+    return out
 
 
 def _wire_body(q: Mapping[str, Any]) -> Dict[str, Any]:
@@ -44,10 +73,13 @@ class Bloklake:
     """A Bloklake client for one chain. Queries travel as Apache Arrow and are decoded here
     into plain JSON-like rows (the same values ``/query/json`` would give).
 
+    Queries use the API's camelCase names or the same names in snake_case; rows always come
+    back in snake_case:
+
     >>> bl = Bloklake(chain="eth")                      # key from BLOKLAKE_API_KEY
-    >>> for page in bl.paginate({"fromBlock": 19_000_000, "toBlock": 19_100_000,
+    >>> for page in bl.paginate({"from_block": 19_000_000, "to_block": 19_100_000,
     ...         "logs": [{"address": [USDC], "topic0": [TRANSFER]}],
-    ...         "fields": {"log": ["blockNumber", "topic1", "topic2", "data"]}}):
+    ...         "fields": {"log": ["block_number", "topic1", "topic2", "data"]}}):
     ...     for log in page.logs:
     ...         print(log["block_number"], log["data"])
     """
@@ -77,12 +109,13 @@ class Bloklake:
     def query(self, q: Query) -> Page:
         """Run a query and return one page. Read ``page.meta.next_block`` to continue, or use
         :meth:`paginate`."""
-        return self._query_body(_wire_body(q))
+        return self._query_body(_wire_body(_camel_query(q)))
 
     def paginate(self, q: Query, use_prepared_query: bool = True) -> Iterator[Page]:
         """Every page of a query, following ``next_block`` until ``toBlock`` (or the chain
         head when ``toBlock`` is omitted). After the first page only the prepared-query id is
         sent; if it expired, the full filter is sent again."""
+        q = _camel_query(q)  # type: ignore[assignment]  # the same Query, in camelCase
         full = _wire_body(q)
         frm = q.get("fromBlock", 0)
         query_id: Optional[str] = None
@@ -158,7 +191,7 @@ class Bloklake:
 
     def prepare(self, q: Mapping[str, Any]) -> Prepared:
         """Register a query's filter and get its id without running it."""
-        j = self._json("POST", "/v1/queries", _wire_body(q))
+        j = self._json("POST", "/v1/queries", _wire_body(_camel_query(q)))
         return Prepared(query_id=j["query_id"], expires_in=j["expires_in"])
 
     # ---- chain and account -------------------------------------------------------------------

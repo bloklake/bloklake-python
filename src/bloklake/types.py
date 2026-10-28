@@ -1,5 +1,6 @@
 """Request and response types. Requests are plain dicts (TypedDicts below) with the API's
-camelCase keys; rows are plain dicts with the API's snake_case column names."""
+camelCase keys or the same keys in snake_case (``from_block``, ``block_number``), which the
+client turns into camelCase; rows are plain dicts with the API's snake_case column names."""
 from dataclasses import dataclass, field
 from typing import Dict, List, Literal, Optional, Sequence, TypedDict
 
@@ -9,19 +10,20 @@ LogFilter = TypedDict("LogFilter", {
     "address": Sequence[str], "topic0": Sequence[str], "topic1": Sequence[str],
     "topic2": Sequence[str], "topic3": Sequence[str],
     "addressSet": str, "topic0Set": str, "topic1Set": str, "topic2Set": str, "topic3Set": str,
+    "address_set": str, "topic0_set": str, "topic1_set": str, "topic2_set": str, "topic3_set": str,
 }, total=False)
 """Matches logs: every key set must match (AND); a row matches if any filter does (OR)."""
 
 TransactionFilter = TypedDict("TransactionFilter", {
     "from": Sequence[str], "to": Sequence[str], "sighash": Sequence[str],
-    "fromSet": str, "toSet": str, "status": Literal[0, 1],
+    "fromSet": str, "toSet": str, "from_set": str, "to_set": str, "status": Literal[0, 1],
     "type": Sequence[int],  # 0 legacy, 1 access list, 2 EIP-1559, 3 blob, 4 EIP-7702, Arbitrum 100-120
 }, total=False)
 """Matches transactions: every key set must match (AND); a row matches if any filter does (OR)."""
 
 
 class Fields(TypedDict, total=False):
-    """Which columns to return, by request (camelCase) name."""
+    """Which columns to return, by request name (``blockNumber``) or column name (``block_number``)."""
     log: Sequence[LogField]
     transaction: Sequence[TransactionField]
     block: Sequence[BlockField]
@@ -32,7 +34,10 @@ class _QueryRequired(TypedDict):
 
 
 class Query(_QueryRequired, total=False):
-    """A query. See https://docs.bloklake.com/querying/request-body"""
+    """A query. See https://docs.bloklake.com/querying/request-body
+
+    Every camelCase key may be written in snake_case instead (``from_block``); give each key
+    one way only."""
     fromBlock: int
     toBlock: int
     maxObjects: int
@@ -43,6 +48,13 @@ class Query(_QueryRequired, total=False):
     blockOffset: int
     #: Reject (400) a selected field this chain doesn't have, instead of an all-null column.
     strictFields: bool
+    from_block: int
+    to_block: int
+    max_objects: int
+    join_transactions: bool
+    block_interval: int
+    block_offset: int
+    strict_fields: bool
 
 
 @dataclass

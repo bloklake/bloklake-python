@@ -112,3 +112,44 @@ def test_paginate_sends_strict_fields_with_every_page():
     assert first["strictFields"] is True and "fields" in first
     assert second["queryId"].startswith("0x") and "fields" not in second
     assert second["strictFields"] is True
+
+
+def test_snake_case_request_is_sent_in_camel_case():
+    camel = {"fromBlock": 19426000, "toBlock": 19426009, "joinTransactions": True,
+             "logs": [{"address": ["0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48"], "topic0Set": "0x01"}],
+             "transactions": [{"fromSet": "0x02", "status": 1}],
+             "fields": {"log": ["blockNumber", "transactionHash", "topics"], "transaction": ["gasUsed", "hash"]}}
+    snake = {"from_block": 19426000, "to_block": 19426009, "join_transactions": True,
+             "logs": [{"address": ["0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48"], "topic0_set": "0x01"}],
+             "transactions": [{"from_set": "0x02", "status": 1}],
+             "fields": {"log": ["block_number", "transaction_hash", "topics"], "transaction": ["gas_used", "hash"]}}
+    body = (FIX / "eth-logs-only.arrows").read_bytes()
+    s = FakeSession([FakeResponse(body=body), FakeResponse(body=body)])
+    bl = Bloklake(base_url="http://x", session=s)
+    bl.query(camel)
+    page = bl.query(snake)
+    assert s.calls[1]["json"] == s.calls[0]["json"]
+    assert s.calls[1]["json"]["fields"]["log"] == {"blockNumber": True, "transactionHash": True, "topics": True}
+    assert "block_number" in page.logs[0]  # rows stay snake_case
+
+
+def test_a_key_given_both_ways_is_refused_before_sending():
+    s = FakeSession([])
+    bl = Bloklake(base_url="http://x", session=s)
+    with pytest.raises(ValueError, match="'fromBlock' is given twice"):
+        bl.query({"fromBlock": 1, "from_block": 1, "fields": {"log": ["data"]}})
+    with pytest.raises(ValueError, match="'addressSet' is given twice"):
+        bl.query({"logs": [{"addressSet": "0x01", "address_set": "0x01"}], "fields": {"log": ["data"]}})
+    assert s.calls == []
+
+
+def test_paginate_reads_snake_case_range_keys():
+    body = (FIX / "eth-logs-only.arrows").read_bytes()
+    s = FakeSession([FakeResponse(body=body), FakeResponse(body=body)])
+    pages = Bloklake(base_url="http://x", session=s).paginate(
+        {"from_block": 19426000, "to_block": 19426019, "strict_fields": True, "logs": [{}], "fields": {"log": ["block_number"]}})
+    next(pages), next(pages)
+    first, second = s.calls[0]["json"], s.calls[1]["json"]
+    assert (first["fromBlock"], first["toBlock"], first["fields"]) == (19426000, 19426019, {"log": {"blockNumber": True}})
+    assert (second["fromBlock"], second["toBlock"], second["strictFields"]) == (19426010, 19426019, True)
+    assert "from_block" not in first and "to_block" not in second

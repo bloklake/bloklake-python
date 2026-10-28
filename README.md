@@ -24,13 +24,13 @@ from bloklake import Bloklake
 bl = Bloklake(chain="eth")  # API key from BLOKLAKE_API_KEY
 
 page = bl.query({
-    "fromBlock": 19_426_000,
-    "toBlock": 19_426_009,
+    "from_block": 19_426_000,
+    "to_block": 19_426_009,
     "logs": [{
         "address": ["0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48"],
         "topic0": ["0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef"],
     }],
-    "fields": {"log": ["blockNumber", "transactionHash", "topic1", "topic2", "data"]},
+    "fields": {"log": ["block_number", "transaction_hash", "topic1", "topic2", "data"]},
 })
 
 for log in page.logs:
@@ -38,18 +38,22 @@ for log in page.logs:
 print(page.meta.next_block)
 ```
 
+Write the query in snake_case, as above, or in the API's camelCase (`"fromBlock"`,
+`"blockNumber"`, as in the HTTP API and curl examples); the client sends camelCase either way.
+Give each key one way only. Rows always come back in snake_case (`log["block_number"]`).
+
 ## Reading a whole range
 
-`paginate` follows `next_block` until `toBlock` (or the chain head when you leave `toBlock`
+`paginate` follows `next_block` until `to_block` (or the chain head when you leave `to_block`
 out). After the first page it sends only the prepared-query id, and falls back to the full
 query if the id expired.
 
 ```python
 for page in bl.paginate({
-    "fromBlock": 19_000_000,
-    "toBlock": 19_100_000,
+    "from_block": 19_000_000,
+    "to_block": 19_100_000,
     "logs": [{"topic0": [TRANSFER]}],
-    "fields": {"log": ["blockNumber", "address", "topic1", "topic2", "data"]},
+    "fields": {"log": ["block_number", "address", "topic1", "topic2", "data"]},
 }):
     store(page.logs)
 ```
@@ -80,7 +84,7 @@ rather keep the raw Arrow columns, use the API directly as shown in
 
 ```python
 s = bl.create_set("address", pools)                    # idempotent: same values, same id
-bl.query({"logs": [{"addressSet": s.set_id, "topic0": [SWAP]}], "fields": {"log": ["address", "data"]}})
+bl.query({"logs": [{"address_set": s.set_id, "topic0": [SWAP]}], "fields": {"log": ["address", "data"]}})
 bl.get_set(s.set_id)
 bl.delete_set(s.set_id)
 

@@ -9,6 +9,19 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 schema = json.loads((ROOT / "scripts" / "schema.json").read_text())
 
+
+def camel_case(name: str) -> str:
+    """``block_number`` -> ``blockNumber``; must match ``bloklake.client._camel``."""
+    return re.sub(r"_([a-z0-9])", lambda m: m.group(1).upper(), name)
+
+
+# Requests may name a field by its column name (``block_number``); the client turns it into the
+# request name. That only works while every request name is its column name in camelCase.
+for rt, fs in schema["row_types"].items():
+    for f in fs:
+        if camel_case(f["name"]) != f["dsl_name"]:
+            raise SystemExit(f'{rt}.{f["name"]}: request name {f["dsl_name"]} is not the column name in camelCase')
+
 # uint256 amounts: 32 bytes like a hash, but decimal strings in JSON (the server's catalogue)
 UINT256 = ["max_refund", "submission_fee_refund", "deposit_value", "retry_value", "max_submission_fee", "l1_base_fee"]
 STRUCT_NAMES = {"withdrawals": "Withdrawal", "access_list": "AccessListEntry", "authorization_list": "Authorization"}
@@ -73,8 +86,11 @@ rows = []
 for key, field_alias, row in (("logs", "LogField", "Log"), ("transactions", "TransactionField", "Transaction"), ("blocks", "BlockField", "Block")):
     fields = schema["row_types"][key]
     names = [f["dsl_name"] for f in fields] + (["topics"] if key == "logs" else [])
+    # The same fields by column name, for snake_case requests (``block_number``).
+    names += [f["name"] for f in fields if f["name"] != f["dsl_name"]]
     rows.append(f"{field_alias} = Literal[\n" + "".join(f'    "{n}",\n' for n in names) + "]")
-    rows.append(f'"""Field names for `fields.{ {"logs": "log", "transactions": "transaction", "blocks": "block"}[key] }`."""')
+    rows.append(f'"""Field names for `fields.{ {"logs": "log", "transactions": "transaction", "blocks": "block"}[key] }`: '
+                f'the request name (camelCase) or the column name (snake_case)."""')
     rows.append("")
     entries = []
     for f in fields:
